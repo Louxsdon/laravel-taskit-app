@@ -8,7 +8,7 @@ Taskit is a To-do app built using Laravel and React with inertial.js
 
 ## Stack Used
 
-The frameworks and libries used are:
+The frameworks and libraries used are:
 - Laravel
 - React (React.js)
 - Inertial.js
