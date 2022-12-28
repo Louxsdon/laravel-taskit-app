@@ -80,9 +80,18 @@ class TodoController extends Controller
      * @param  \App\Models\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Todo $todo)
+    public function update(Request $request, $todo_id)
     {
-       
+        $todo = Todo::findOrFail($todo_id);
+
+        $validated = $request->validate([
+            'todo'=>'required|min:5',
+            'finished'=>'nullable|boolean'
+        ]);
+        
+        $todo->update($validated);
+
+        return redirect("/todos");
     }
 
     /**
@@ -91,8 +100,11 @@ class TodoController extends Controller
      * @param  \App\Models\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Todo $todo)
+    public function destroy($todo_id)
     {
-        //
+        $todo = Todo::findOrFail($todo_id);
+        $todo->delete();
+
+        return redirect("/todos");
     }
 }

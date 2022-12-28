@@ -35,30 +35,17 @@ Route::get('/', function () {
 
 // Todo routes
 Route::middleware(['auth'])->group(function () {
+    // retrieve all todos
     Route::get('todos', [TodoController::class, 'index']);
 
+    // create new todo
     Route::post('todos', [TodoController::class, 'create'])->name('todos.create');
 
     // delete todo
-    Route::delete('todos/{id}', function ($id) {
-        $todo = Todo::findOrFail($id);
-        $todo->delete();
+    Route::delete('todos/{id}', [TodoController::class, 'destroy']);
 
-        return redirect("/todos");
-    });
-
-    Route::put('todos/{id}', function (Request $request, $id) {
-        $todo = Todo::findOrFail($id);
-
-        $validated = $request->validate([
-            'todo'=>'required|min:5',
-            'finished'=>'nullable|boolean'
-        ]);
-        
-        $todo->update($validated);
-
-        return redirect("/todos");
-    });
+    // update todo
+    Route::put('todos/{id}', [TodoController::class, 'update']);
 });
 
 Route::middleware('auth')->group(function () {
