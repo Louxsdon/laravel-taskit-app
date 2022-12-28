@@ -1,7 +1,12 @@
 import { Inertia } from "@inertiajs/inertia";
-import React from "react";
+import React, { useEffect } from "react";
 
-export default function Todo({ todoItem, setEdit }) {
+export default function Todo({ todoItem, setEdit, user }) {
+    useEffect(() => {
+        console.log("Auth user", user);
+        console.log("Todo Item", todoItem);
+    }, []);
+
     const deleteTodo = (id) => {
         Inertia.delete(`/todos/${id}`);
     };
@@ -15,20 +20,22 @@ export default function Todo({ todoItem, setEdit }) {
                 {" "}
                 {todoItem.todo}
             </p>
-            <div className="flex w-[20%] justify-evenly">
-                <button
-                    onClick={() => setEdit(todoItem)}
-                    className="bg-blue-300 text-blue-600 px-1"
-                >
-                    Edit
-                </button>
-                <button
-                    onClick={() => deleteTodo(todoItem.id)}
-                    className="bg-red-300 text-red-600 px-1"
-                >
-                    Del
-                </button>
-            </div>
+            {user.id === todoItem.user_id ? (
+                <div className="flex w-[20%] justify-evenly">
+                    <button
+                        onClick={() => setEdit(todoItem)}
+                        className="bg-blue-300 text-blue-600 px-1"
+                    >
+                        Edit
+                    </button>
+                    <button
+                        onClick={() => deleteTodo(todoItem.id)}
+                        className="bg-red-300 text-red-600 px-1"
+                    >
+                        Del
+                    </button>
+                </div>
+            ) : null}
         </li>
     );
 }

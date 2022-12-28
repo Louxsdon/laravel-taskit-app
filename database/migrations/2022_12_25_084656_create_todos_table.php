@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('todos', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('todo');
             $table->boolean('finished')->nullable(false);
             $table->timestamps();

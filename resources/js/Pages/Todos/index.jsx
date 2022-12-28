@@ -1,9 +1,9 @@
 import TodoList from "@/Components/Todos/TodoList";
 import { Inertia } from "@inertiajs/inertia";
 import { useForm } from "@inertiajs/inertia-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-export default function Todos({ todos }) {
+export default function Todos({ todos, auth }) {
     const [throttle, setThrottle] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [updatedTodo, setUpdatedTodo] = useState(null);
@@ -147,7 +147,11 @@ export default function Todos({ todos }) {
             )}
             <div className="mt-5 w-full">
                 <h3 className="font-bold text-lg mb-3">Todos List</h3>
-                <TodoList setEdit={setTodoUpdate} todos={todos} />
+                <TodoList
+                    user={auth.user}
+                    setEdit={setTodoUpdate}
+                    todos={todos}
+                />
             </div>
         </div>
     );

@@ -33,7 +33,9 @@ class TodoController extends Controller
             'finished'=>'nullable|boolean'
         ]);
 
-        Todo::create($validated_data);
+        $request->user()->todos()->create($validated_data);
+
+        // Todo::create($validated_data);
 
        return redirect("/todos");
     }

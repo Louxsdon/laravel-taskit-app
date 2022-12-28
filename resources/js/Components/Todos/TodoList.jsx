@@ -1,7 +1,7 @@
 import React from "react";
 import Todo from "./Todo";
 
-export default function TodoList({ todos, setEdit }) {
+export default function TodoList({ todos, setEdit, user }) {
     return (
         <ul className="w-full">
             {todos.length < 1 ? (
@@ -10,7 +10,12 @@ export default function TodoList({ todos, setEdit }) {
                 </p>
             ) : (
                 todos.map((todoItem, i) => (
-                    <Todo setEdit={setEdit} key={i} todoItem={todoItem} />
+                    <Todo
+                        user={user}
+                        setEdit={setEdit}
+                        key={i}
+                        todoItem={todoItem}
+                    />
                 ))
             )}
         </ul>
